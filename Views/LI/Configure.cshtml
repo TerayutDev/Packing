@@ -1,0 +1,246 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+<div class="row" style="padding-top:10px">
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label style="width:100%;padding:0px 0px 0px 15px;background-color:silver;border:silver thin solid">@localizer["Shift"]</label>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:100px;min-width:100px;font-weight:normal">@localizer["ShiftName"]</th>
+                        <th style="width:100px;min-width:100px;font-weight:normal">@localizer["From"]</th>
+                        <th style="width:100px;min-width:100px;font-weight:normal">@localizer["To"]</th>
+                        <th style="width:100px;min-width:80px;font-weight:normal"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="width:100px;min-width:100px"><input class="form-control text-center" value="เช้า" /></td>
+                        <td style="width:100px;min-width:100px"><input class="form-control text-center" /></td>
+                        <td style="width:100px;min-width:100px"><input class="form-control text-center" /></td>
+                    </tr>
+                    <tr>
+                        <td><input class="form-control text-center" value="บ่าย" /></td>
+                        <td><input class="form-control text-center" /></td>
+                        <td><input class="form-control text-center" /></td>
+                    </tr>
+                    <tr>
+                        <td><input class="form-control text-center" value="ดึก" /></td>
+                        <td><input class="form-control text-center" /></td>
+                        <td><input class="form-control text-center" /></td>
+                        <td><button class="btn btn-primary" style="padding-top:4px;padding-bottom:4px">@localizer["Apply"]</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="form-group col-md-12">
+            <label style="width:100%;padding:0px 0px 0px 15px;background-color:silver;border:silver thin solid">@localizer["BatchNoFormat"]</label>
+            <div class="form-inline">
+                <select id="selfield1" style="width:120px;margin-right:3px">
+                    <option></option>
+                    <option value="DD" selected>DD-Day</option>
+                    <option value="MM">MM-Month</option>
+                    <option value = "YY">YY-Year</option>
+                    <option value ="SLOC">SLOC</option>
+                    <option value ="S">S-Shif</option>
+                </select>
+                <select id="selfield2" style="width:120px;margin-right:3px">
+                    <option></option>
+                    <option value="DD">DD-Day</option>
+                    <option value="MM" selected>MM-Month</option>
+                    <option value="YY">YY-Year</option>
+                    <option value="SLOC">SLOC</option>
+                    <option value="S">S-Shif</option>
+                </select>
+                <select id="selfield3" style="width:120px;margin-right:3px">
+                    <option></option>
+                    <option value="DD">DD-Day</option>
+                    <option value="MM">MM-Month</option>
+                    <option value="YY" selected>YY-Year</option>
+                    <option value="SLOC">SLOC</option>
+                    <option value="S">S-Shif</option>
+                </select>
+                <select id="selfield4" style="width:120px;margin-right:3px">
+                    <option></option>
+                    <option value="DD">DD-Day</option>
+                    <option value="MM">MM-Month</option>
+                    <option value="YY">YY-Year</option>
+                    <option value="SLOC" selected>SLOC</option>
+                    <option value="S">S-Shif</option>
+                </select>
+                <select id="selfield5" style="width:120px">
+                    <option selected></option>
+                    <option value="DD">DD-Day</option>
+                    <option value="MM">MM-Month</option>
+                    <option value="YY">YY-Year</option>
+                    <option value="SLOC">SLOC</option>
+                    <option value="S">S-Shif</option>
+                </select>
+                <button class="btn btn-primary" style="margin-left:5px;padding-top:3px;padding-bottom:3px">@localizer["Apply"]</button>
+            </div>
+        </div>
+        <div class="form-group col-md-12">
+            <label style="width:100%;padding:0px 0px 0px 15px;background-color:silver;border:silver thin solid">@localizer["StickerFormat"]</label>
+            <div class="form-inline">
+                <label style="font-weight:normal;width:120px">@localizer["StickerWH"]</label>
+                <input type="text" id="txstickerwidth" class="form-control" style="margin-right:10px;width:50px;text-align:center" />
+                <input type="text" id="txstickerwidth" class="form-control" style="width:50px;text-align:center;margin-right:5px" />
+                <label style="font-weight:normal"> @localizer["Inchs"]</label>
+                
+                <label style="font-weight:normal;width:120px">@localizer["QRFormatWH"]</label>
+                <input type="text" id="txqrwidth" class="form-control" style="margin-right:10px;width:50px;text-align:center" />
+                <input type="text" id="txqrwidth" class="form-control" style="width:50px;text-align:center;margin-right:5px" />
+                <label style="font-weight:normal"> @localizer["Inchs"]</label>
+
+                <label style="font-weight:normal;width:80px">@localizer["FontSize"]</label>
+                <input type="text" id="txfontsize" class="form-control" style="margin-right:10px;width:50px;text-align:center" />
+
+                <label style="font-weight:normal;width:140px">@localizer["RunNoFontSize"]</label>
+                <input type="text" id="txrunnofontsize" class="form-control" style="margin-right:10px;width:50px;text-align:center" />
+
+                <label style="font-weight:normal;width:140px">@localizer["FormNoFontSize"]</label>
+                <input type="text" id="txformno" class="form-control" style="margin-right:3px;width:50px;text-align:center" />
+
+                <button class="btn btn-primary" style="margin-left:5px;padding-top:3px;padding-bottom:3px">@localizer["Apply"]</button>
+            </div>
+        </div>
+        <div class="form-group col-md-12">
+            <label style="width:100%;padding:0px 0px 0px 15px;background-color:silver;border:silver thin solid">Packing line-Product configuration</label>
+            <div class="form-inline">
+                <table class="isr-table" id="tbl1">
+                    <thead>
+                        <tr>
+                            <th style="width:80px">@localizer["Line"]</th>
+                            <th>@localizer["MaterailCode"]</th>
+                            <th>@localizer["MaterialName"]</th>
+                            <th>@localizer["UOM"]</th>
+                            <th>@localizer["Status"]</th>
+                            <th>@localizer["Hold"]</th>
+                            <th>@localizer["FormNo"]</th>
+                            <th>@localizer["Rev"]</th>
+                            <th style="width:45px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ondblclick="showmodal(1)">
+                            <td class="text-center">J</td>
+                            <td class="text-center">F011001501</td>
+                            <td>TVO Dehulled soymeal (TH) 70 Kg</td>
+                            <td class="text-center">KG</td>
+                            <td class="text-center" style="color:green">OPEN</td>
+                            <td class="text-center" style="color:gold">HOLD</td>
+                            <td class="text-center">FM-MP3A-006 / 01-11-59</td>
+                            <td class="text-center">4</td>
+                            <td class="text-center"><i class="fa fa-pencil-square-o" aria-hidden="true" style="color:goldenrod" onclick=" showmodal(1)"></i></td>
+                        </tr>
+                        <tr ondblclick="showmodal(1)">
+                            <td class="text-center">D</td>
+                            <td class="text-center">F011001601</td>
+                            <td>TVO Dehulled soymeal (TH) Bulk</td>
+                            <td class="text-center">KG</td>
+                            <td class="text-center" style="color:green">OPEN</td>
+                            <td class="text-center" style="color:green">PASS</td>
+                            <td class="text-center">FM-MP3A-007 / 01-11-59</td>
+                            <td class="text-center">2</td>
+                            <td class="text-center"><i class="fa fa-pencil-square-o" aria-hidden="true" style="color:goldenrod" onclick=" showmodal(1)"></i></td>
+                        </tr>
+                        <tr ondblclick="showmodal(1)">
+                            <td class="text-center">K</td>
+                            <td class="text-center">F012001501</td>
+                            <td>TVO Dehulled soymeal 70KG</td>
+                            <td class="text-center">KG</td>
+                            <td class="text-center" style="color:red">CLOSE</td>
+                            <td class="text-center" style="color:gold">HOLD</td>
+                            <td class="text-center"> FM-MP3A-009 / 19-10-62</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center"><i class="fa fa-pencil-square-o" aria-hidden="true" style="color:goldenrod" onclick=" showmodal(1)"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="modalconfig">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Materail configuration</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="showmodal(0)">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label style="font-weight:normal">Material Code</label>
+                        <input class="form-control" id="txcode" readonly />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label style="font-weight:normal">Packing Line</label>
+                        <div class="form-inline">
+                            <select id="selline" style="width:100%">
+                                <option></option>
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label style="font-weight:normal">UNIT</label>
+                        <select id="selunit" style="width:100%">
+                            <option>00</option>
+                            <option>KG</option>
+                            <option>BAG</option>
+                            <option>BOX</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label style="font-weight:normal">OPEN/CLOSE</label>
+                        <select id="selstatus" style="width:100%">
+                            <option value="0">CLOSE</option>
+                            <option value="1" selected>OPEN</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label style="font-weight:normal">HOLD</label>
+                        <select id="selhold" style="width:100%">
+                            <option value="1">HOLD</option>
+                            <option value="0" selected>PASS</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label style="font-weight:normal">Form No</label>
+                        <input class="form-control" id="txformno" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label style="font-weight:normal">Revision</label>
+                        <input class="form-control" id="txrev" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="showmodal(0)">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="showmodal(0)">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        SetPagename('Configuration');
+    });
+
+    function showmodal(flagshow) {
+        if (flagshow == 1){
+            $('#modalconfig').show();
+        }else{
+            $('#modalconfig').hide();
+        }
+    }
+</script>

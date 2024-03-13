@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Ayx0X1REmiLEQWxyJV0CY8xjHTn6G7eJShFprIO+rq1T+6LDuhF+3LW4m0eA6sHhgT+0vz+wmQBmzIYBc+Bw/A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\YUTZA\\Downloads\\Packing\\Packing.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\YUTZA\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

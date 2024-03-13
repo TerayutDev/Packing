@@ -1,0 +1,141 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@{
+    Layout = null;
+    //string Check = ViewBag.FailLogin;
+}
+@*@inject Loadin.Repository.ISecurity menu;*@
+@{
+    var IdGroup = 0;// HttpContextAccessor.HttpContext.Session.GetInt32("IdGroup");
+                    //string UserName = HttpContextAccessor.HttpContext.Session.GetString("Name_Emp");
+                    //string RFID_No = HttpContextAccessor.HttpContext.Session.GetString("RFID_No");
+    //var dataList = menu.ViewMenuByGroup(null);
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CAR-Q [Packing]</title>
+    <link rel="icon" type="image/x-icon" href="~/img/logo.png">
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AutomateWIO.styles.css" asp-append-version="true" />
+
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="~/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/css/sweetalert2.min.css" />
+    <script src="~/js/sweetalert2.min.js"></script>
+    <style>
+        #main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body class="hold-transition login-page" style="background-color:#36454F">
+    <div id="main">
+        <div class="login-box" style="background-color:#36454F">
+            <div class="login-box-body" style="background-color:#36454F">
+
+
+                <p class="login-box-msg" style="font-size:x-large;width:auto;padding-bottom:0px"><b style="font-family:'Arial Rounded MT'; font-weight: bolder; color:green; font-size: xx-large; padding-bottom: 0px ">CAR-Q</b></p>
+                <p class="login-box-msg" style="font-size:larger;width:auto;font-weight:normal;font-family:Arial;color:silver">Load In</p>
+
+                <form id="loginfrom" autocomplete="off">
+                    <div class="form-group has-feedback">
+                        <input id="txlogin" name="txtusername" type="text" style="font-size:larger;height:40px" class="form-control" placeholder="@localizer["UserName"]">
+                        <span class="glyphicon glyphicon-user text-red form-control-feedback" style="padding-top:8px"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input name="txpw" id="txpw" type="password" style="font-size:larger;height:40px" class="form-control" placeholder="@localizer["Password"]">
+                        <span class="glyphicon text-red glyphicon-lock form-control-feedback" style="padding-top:8px"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <select id="selline" class="form-control" style="width:100%;height:40px">
+                            <option>--@localizer["SelectLine"]--</option>
+                            <option>D</option>
+                            <option>J</option>
+                            <option>K</option>
+                        </select>
+                        <span class="glyphicon text-red glyphicon-lock form-control-feedback" style="padding-top:8px"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button type="button" id="btnlog" style="font-size:x-large;height:60px;background-color:green;color:white" class="btn  form-control" onclick="LogIn()">@localizer["Login"]</button>
+                            <h5 class="text-center" style="padding-top:15px;font-size:medium;width:auto;font-weight:normal;font-family:Arial;color:silver">Last update 13 Mar 24 13:30</h5>
+                        </div>
+
+                        <!-- /.col -->
+                    </div>
+                </form>
+            </div>
+            <!-- /.login-box-body -->
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="~/select2/js/select2.full.min.js"></script>
+<script src="~/js/adminlte.js"></script>
+
+<script>
+
+    function SetPagename(name) {
+        $('#pagename').text(name);
+    }
+
+    function LogIn(){
+        window.location.href = '@Url.Action("Li","LI")';
+    }
+
+    function Logout() {
+        sessionStorage.clear();
+        window.location.href = '@Url.Action("Logout","LI")';
+    }
+
+    function Notify(icon, title) {
+        Swal.fire({
+            position: 'top-end',
+            icon: icon,
+            title: title,
+            customClass: 'swal-notify-wide',
+            showConfirmButton: false,
+            timer: 2000
+        });
+        $(".swal2-modal").css('padding', '30px');//Optional changes the color of the sweetalert
+        $(".swal2-modal").css('width', '400px');
+        $(".swal2-title").css('margin-bottom', '3px');
+        $(".swal2-title").css('font-weight', 'normal');
+        $(".swal2-title").css('font-size', '16px');
+        $(".swal2-container.in").css('background-color', 'rgba(43, 165, 137, 0.45)');//changes the color of the overlay
+
+        if (icon == "info") {
+            $(".swal2-modal").css('background-color', '#3fc3ee');//Optional changes the color of the sweetalert
+            $(".swal2-title").css('color', 'black');
+        }
+        else if (icon == "success") {
+            $(".swal2-modal").css('background-color', '#a5dc86');//Optional changes the color of the sweetalert
+            $(".swal2-title").css('color', 'black');
+        }
+        else if (icon == "warning") {
+            $(".swal2-modal").css('background-color', '#ffc107');//Optional changes the color of the sweetalert
+            $(".swal2-title").css('color', 'black');
+        }
+        else if (icon == "error") {
+            $(".swal2-modal").css('background-color', '#dc3545');//Optional changes the color of the sweetalert
+            $(".swal2-title").css('color', 'white');
+        }
+        if (icon == "question") {
+            $(".swal2-modal").css('background-color', '#d63384');//Optional changes the color of the sweetalert
+            $(".swal2-title").css('color', 'white');
+        }
+    }
+</script>

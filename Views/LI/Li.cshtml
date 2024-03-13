@@ -1,0 +1,210 @@
+﻿
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+<div class="row" style="padding-top:10px">
+    <div class="form-row">
+        <div class="form-group col-md-3" style="margin-bottom:3px">
+            <label style="font-weight:normal;margin-bottom:3px" for="selline">@localizer["Line"]</label>
+            <select id="selline" class="form-control select2">
+                <option>D</option>
+                <option>J</option>
+                <option selected>K</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3" style="margin-bottom:3px">
+            <label style="font-weight:normal;margin-bottom:3px" for="selsloc">@localizer["SLOC"]</label>
+            <select id="selsloc" class="form-control select2">
+                <option></option>
+                <option>MP3A</option>
+                <option>MP3A</option>
+                <option>FS1</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2" style="margin-bottom:3px">
+            <label style="font-weight:normal;margin-bottom:3px" for="txbatch">@localizer["BatchNo"]</label>
+            <input type="text" class="form-control text-center" id="txbatch" readonly>
+        </div>
+
+        <div class="form-group col-md-2" style="margin-bottom:3px">
+            <label style="font-weight:normal;margin-bottom:3px" for="txdate">@localizer["MFGDate"]</label>
+            <input type="text" class="form-control text-center" id="txmfgdate">
+        </div>
+        <div class="form-group col-md-2" style="margin-bottom:3px">
+            <label style="font-weight:normal;margin-bottom:3px" for="txuser">@localizer["ExpiredDate"]</label>
+            <input type="text" class="form-control" id="txexpiredate" readonly>
+        </div>
+
+        <div class="form-group col-md-3" style="margin-bottom:3px">
+            @*tbm_material.material_code*@
+            <label style="font-weight:normal;margin-bottom:3px" for="selmatcode">@localizer["MaterialCode"]</label>@*Material Code*@
+            <select id="selmatcode" class="form-control select2">
+                <option selected></option>
+                <option>F011001501</option>
+                <option>F011001601</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3" style="margin-bottom:3px">
+            <label style="font-weight:normal;margin-bottom:3px" for="selprod">@localizer["MaterialGroup"]</label>
+            <input id="txmatgroup" class="form-control" readonly />
+        </div>
+        <div class="form-group col-md-4" style="margin-bottom:3px">
+            <label style="font-weight:normal;margin-bottom:3px" for="selprod">@localizer["MaterialName"]</label>
+            <input id="txmatname" class="form-control" readonly />
+        </div>
+        <div class="form-group col-md-2" style="margin-bottom:3px">
+            <label style="font-weight:normal;margin-bottom:3px" for="txstatus">@localizer["Hold"]</label>
+            <input type="text" class="form-control" id="txstatus" readonly>
+        </div>
+
+
+        <div class="form-group col-md-3" style="margin-bottom:10px">
+            <label style="font-weight:normal;margin-bottom:3px" for="txqty">@localizer["RunNo"]</label>
+            <div class="row">
+                <div class="col-md-6"><input type="text" class="form-control text-center" id="txqtyfrom" value="1"></div>
+                <div class="col-md-6"><input type="text" class="form-control text-center" id="txqtyto" value="7"></div>
+            </div>            
+        </div>
+@*        <div class="form-group col-md-1">
+            <label for="">Run no To</label>
+            
+        </div>*@
+        <div class="form-group col-md-2" style="margin-bottom:10px">
+            <label style="font-weight:normal;margin-bottom:3px" for="seluom">@localizer["UOM"]</label>
+            <select id="seluom" class="form-control select2">
+                <option selected></option>
+                <option>00 ไม่ระบุ</option>
+                <option>BAG กระสอบ</option>
+                <option>BOX Box</option>
+                <option>BT Bottle</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2" style="margin-bottom:10px">
+            <label style="font-weight:normal;margin-bottom:3px" for="txqrcode">@localizer["Package"]</label>
+            <input type="text" class="form-control" id="txpackage" readonly>
+        </div>
+        <div class="form-group col-md-1" style="margin-bottom:10px">
+            <label style="font-weight:normal;margin-bottom:3px" for="txqrcode">@localizer["Shift"]</label>
+            <input type="text" class="form-control" id="txshift" readonly>
+        </div>
+
+        <div class="form-group col-md-4" style="margin-bottom:10px;padding-top:22px">
+            <button type="submit" class="btn btn-primary" id="btapply">@localizer["Apply"]</button>
+            <button type="submit" class="btn btn-warning" disabled id="btclose">@localizer["CloseJob"]</button>
+            <button type="submit" class="btn btn-secondary">@localizer["PrintQRCode"]</button>
+        </div>
+        <div class="form-group col-md-12" style="text-align:center">
+            <table class="isr-table" id="tblbatch">
+                <thear>
+                    <tr>
+                        <th style="width:45px;font-weight:normal"><input type="checkbox" id="checkkall" checked /></th>
+                        <th style="width:120px;font-weight:normal">@localizer["BatchNo"]</th>
+                        <th style="width:80px;font-weight:normal">@localizer["RunNo"]</th>
+                        <th style="width:120px;font-weight:normal">@localizer["Package"]</th>
+                        <th style="width:120px;font-weight:normal">@localizer["MaterialCode"]</th>
+                        <th style="font-weight:normal">@localizer["MaterialGroup"]</th>
+                        <th style="font-weight:normal">@localizer["Shift"]</th>
+                        <th style="width:120px;font-weight:normal">@localizer["MFGDate"]</th>
+                        <th style="width:120px;font-weight:normal">@localizer["ExpiredDate"]</th>
+                    </tr>
+                </thear>
+                <tbody>
+                    <tr>
+                        <td class="text-center" style="width:45px;font-weight:normal"><input type="checkbox" id="cb1" name="cb1" checked /></td>
+                        <td class="text-center" style="width:120px;font-weight:normal">201223M3B</td>
+                        <td class="text-center" style="width:80px;font-weight:normal">J1</td>
+                        <td class="text-center">BAG</td>
+                        <td class="text-center">F011001501</td>
+                        <td class="text-left">ดีฮัลซอยมิลNon GMO</td>
+                        <td class="text-center">A</td>
+                        <td class="text-center">01/02/2024</td>
+                        <td class="text-center">01/06/2024</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" style="width:45px;font-weight:normal"><input type="checkbox" id="cb1" name="cb1" checked /></td>
+                        <td class="text-center" style="width:120px;font-weight:normal">201223M3B</td>
+                        <td class="text-center" style="width:80px;font-weight:normal">J2</td>
+                        <td class="text-center">BAG</td>
+                        <td class="text-center">F011001501</td>
+                        <td class="text-left">ดีฮัลซอยมิลNon GMO</td>
+                        <td class="text-center">A</td>
+                        <td class="text-center">01/02/2024</td>
+                        <td class="text-center">01/06/2024</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" style="width:45px;font-weight:normal"><input type="checkbox" id="cb1" name="cb1" checked /></td>
+                        <td class="text-center" style="width:120px;font-weight:normal">201223M3B</td>
+                        <td class="text-center" style="width:80px;font-weight:normal">J3</td>
+                        <td class="text-center">BAG</td>
+                        <td class="text-center">F011001501</td>
+                        <td class="text-left">ดีฮัลซอยมิลNon GMO</td>
+                        <td class="text-center">A</td>
+                        <td class="text-center">01/02/2024</td>
+                        <td class="text-center">01/06/2024</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" style="width:45px;font-weight:normal"><input type="checkbox" id="cb1" name="cb1" checked /></td>
+                        <td class="text-center" style="width:120px;font-weight:normal">201223M3B</td>
+                        <td class="text-center" style="width:80px;font-weight:normal">J4</td>
+                        <td class="text-center">BAG</td>
+                        <td class="text-center">F011001501</td>
+                        <td class="text-left">ดีฮัลซอยมิลNon GMO</td>
+                        <td class="text-center">A</td>
+                        <td class="text-center">01/02/2024</td>
+                        <td class="text-center">01/06/2024</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" style="width:45px;font-weight:normal"><input type="checkbox" id="cb1" name="cb1" checked /></td>
+                        <td class="text-center" style="width:120px;font-weight:normal">201223M3B</td>
+                        <td class="text-center" style="width:80px;font-weight:normal">J5</td>
+                        <td class="text-center">BAG</td>
+                        <td class="text-center">F011001501</td>
+                        <td class="text-left">ดีฮัลซอยมิลNon GMO</td>
+                        <td class="text-center">A</td>
+                        <td class="text-center">01/02/2024</td>
+                        <td class="text-center">01/06/2024</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" style="width:45px;font-weight:normal"><input type="checkbox" id="cb1" name="cb1" checked /></td>
+                        <td class="text-center" style="width:120px;font-weight:normal">201223M3B</td>
+                        <td class="text-center" style="width:80px;font-weight:normal">J6</td>
+                        <td class="text-center">BAG</td>
+                        <td class="text-center">F011001501</td>
+                        <td class="text-left">ดีฮัลซอยมิลNon GMO</td>
+                        <td class="text-center">A</td>
+                        <td class="text-center">01/02/2024</td>
+                        <td class="text-center">01/06/2024</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" style="width:45px;font-weight:normal"><input type="checkbox" id="cb1" name="cb1" checked /></td>
+                        <td class="text-center" style="width:120px;font-weight:normal">201223M3B</td>
+                        <td class="text-center" style="width:80px;font-weight:normal">J7</td>
+                        <td class="text-center">BAG</td>
+                        <td class="text-center">F011001501</td>
+                        <td class="text-left">ดีฮัลซอยมิลNon GMO</td>
+                        <td class="text-center">A</td>
+                        <td class="text-center">01/02/2024</td>
+                        <td class="text-center">01/06/2024</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        SetPagename('Loading');
+    });
+
+    $(function () {
+        var d = new Date();
+        $('#txmfgdate').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true,
+            todayHighlight: true,
+            orientation: "auto"
+        }).datepicker("setDate", d);
+    });
+
+</script>

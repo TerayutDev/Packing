@@ -1,0 +1,363 @@
+﻿@*@inject Loadin.Repository.ISecurity menu;*@
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Builder;
+@using Microsoft.AspNetCore.Localization;
+@using Microsoft.AspNetCore.Http.Features;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Options;
+
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer localizer
+@inject IOptions<RequestLocalizationOptions> options
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultures = options.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.NativeName })
+        .ToList();
+    var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
+}
+
+
+@*@inject IHttpContextAccessor contxt;*@
+@{
+    //var login = contxt.HttpContext.Session.GetString("login")!;
+    var username = "Woottipong";// contxt.HttpContext.Session.GetString("username")!;
+    var userid = "";//  = contxt.HttpContext.Session.GetString("userid")!;
+    userid = "1";
+    //var dataList = menu.ViewMenuByGroup(Convert.ToInt32(userid));
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CAR-Q PACKING</title>
+    <link rel="icon" type="image/x-icon" href="~/img/logo.png">
+
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AutomateWIO.styles.css" asp-append-version="true" />
+
+
+    <link href="~/select2/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/fontawesome-free/css/all.min.css">
+
+    <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+
+    <link href="~/datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/css/sweetalert2.min.css" />
+    <script src="~/js/sweetalert2.min.js"></script>
+    @*<link href="~/datatables/datatables-1.11.5/css/jquery.datatables.min.css" rel="stylesheet" />*@
+    @*<link href="~/buttons-2.4.2/css/buttons.datatables.min.css" rel="stylesheet" />*@
+</head>
+<body>
+    <div class="wrapper">
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="~/img/logo.png" alt="CAR-Q PACKING" height="150" width="150">
+        </div>
+
+
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" style="padding-left:2px;padding-right:2px" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i>&nbsp;&nbsp<span style="font-weight:bolder;color:green">PACKING</span> - <span id="pagename" style="font-style: italic;color:forestgreen"></span></a>
+                </li>
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" title="Home" style="padding-right:15px" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#">
+                        <span style="font-weight:normal;color:blue">@username</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" title="Language" style="padding-left:2px;padding-right:2px;cursor:pointer"  data-widget="control-sidebar" data-controlsidebar-slide="true" onclick="SetLang(0)">EN</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" title="Language" style="padding-left:2px;padding-right:2px;cursor:pointer" data-widget="control-sidebar" data-controlsidebar-slide="true" onclick="SetLang(1)">TH</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" title="Home" style="padding-left:2px;padding-right:2px;color:green" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#">
+                        <i class="fa fa-home" onclick="Home()"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" title="Logout" style="padding-left:2px;padding-right:2px" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#">
+                        <i class="fas fa-sign-out-alt" onclick="Logout()" style="color:red"></i>                                               
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="#" class="brand-link">
+                <img src="~/img/logo.png" alt="AWIO-logos" class="brand-image img-circle elevation-3">
+            <span class="brand-text font-weight-light">CAR-Q</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+@*                    @foreach (var item in dataList)
+                    {
+                        if (item.flag_permit == 1){
+                            <li class="nav-item">
+                                <a role="button" asp-controller="@item.controller" asp-action="@item.action" class="nav-link">
+                                    <i class="@item.icon" style="color:@item.ColorIcon"></i>
+                                    <p style="color:@item.ColorIcon">
+                                        @item.sub_menu
+                                    </p>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link">
+                                    <i class="@item.icon" style="color:dimgray"></i>
+                                        <p style="color:dimgray">
+                                        @item.sub_menu
+                                    </p>
+                                </a>
+                            </li>
+                        }
+                    }*@
+
+                    <li class="nav-item">
+                            <a role="button" asp-controller="LI" asp-action="Li" class="nav-link">
+                                <i class="nav-icon fa fa-retweet" style="color:green"></i>
+                                <p style="color:green">
+                                    @localizer["Loading"]
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                            <a role="button" asp-controller="LI" asp-action="Loading" class="nav-link">
+                                <i class="nav-icon fa fa-list-ol" style="color:green"></i>
+                                <p style="color:green">
+                                    @localizer["LoadingList"]
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                            <a role="button" asp-controller="LI" asp-action="Approval" class="nav-link">
+                                <i class="nav-icon fa fa-check-square-o" style="color:green"></i>
+                                <p style="color:green">
+                                    @localizer["Approval"]
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                            <a role="button" asp-controller="LI" asp-action="History" class="nav-link">
+                                <i class="nav-icon fa fa-folder-open" style="color:white"></i>
+                                <p style="color:white">
+                                    @localizer["History"]
+                            </p>
+                        </a>
+                    </li>
+                        <li class="nav-item">
+                            <a role="button" asp-controller="LI" asp-action="Summary" class="nav-link">
+                                <i class="nav-icon fa fa-calculator" style="color:white"></i>
+                                <p style="color:white">
+                                    @localizer["Summary"]
+                                </p>
+                            </a>
+                        </li>
+                    <li class="nav-item">
+                            <a role="button" asp-controller="LI" asp-action="Configure" class="nav-link">
+                                <i class="nav-icon fa fa-cogs" style="color:yellow"></i>
+                                <p style="color:yellow">
+                                    @localizer["Configuration"]
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                            <a role="button" asp-controller="LI" asp-action="Logout" class="nav-link">
+                                <i class="nav-icon fa fa-sign-out" style="color:red"></i>
+                            <p style="color:red">
+                                    @localizer["Exit"]
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+        <section class="content">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </section>
+        </div>
+        <footer class="main-footer">
+            <div class="row">
+                <div class="form-inline">
+                    <label style="width:120px;font:normal">Daily summary:</label>
+                    <label style="width:max-content;margin-right:5px;border:solid thin silver;border-radius:5px;padding-left:5px;padding-right:5px;font-weight:normal">Bag : 20 Batch</label>
+                    <label style="width:max-content;margin-right:5px;border:solid thin silver;border-radius:5px;padding-left:5px;padding-right:5px;font-weight:normal">Bulk : 50 Batch</label>
+                    <label style="width:max-content;margin-right:5px;border:solid thin pink;border-radius:5px;padding-left:5px;padding-right:5px;font-weight:normal">Wait for approve : 1 Batch</label>
+                    <label style="width:max-content;margin-right:5px;border:solid thin green;border-radius:5px;padding-left:5px;padding-right:5px;font-weight:normal">Pass : 1 Batch</label>
+                    <label style="width:max-content;margin-right:5px;border:solid thin red;border-radius:5px;padding-left:5px;padding-right:5px;font-weight:normal">Reject : 1 Batch</label>
+                    <label style="width:max-content;margin-right:5px;border:solid thin orange;border-radius:5px;padding-left:5px;padding-right:5px;font-weight:normal">Hold : 1 Batch</label>
+                </div>                    
+            </div>
+@*            <strong>Copyright &copy; 2023 ISR</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 3.2.0
+            </div>*@
+        </footer>
+
+    </div>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+<script src="~/select2/js/select2.full.min.js"></script>
+<script src="~/datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="~/chart.js/chart.min.js"></script>
+
+
+<script src="~/datatables/jquery.dataTables.min.js"></script>
+
+
+
+
+<script src="~/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="~/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+
+<script src="~/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="~/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="~/buttons-2.4.2/js/buttons.colvis.min.js"></script>
+
+<script src="~/buttons-2.4.2/js/datatables.buttons.js"></script>
+<script src="~/buttons-2.4.2/js/buttons.bootstrap.js"></script>
+<script src="~/jszip-3.10.1/jszip.min.js"></script>
+<script src="~/js/signalr/usedatatable/pdfmake.min.js"></script>
+<script src="~/js/signalr/usedatatable/vfs_fonts.js"></script>
+
+<script src="~/fixedheader-3.4.0/js/datatables.fixedheader.min.js"></script>
+<script src="~/fixedcolumns-4.3.0/js/datatables.fixedcolumns.min.js"></script>
+
+<script src="~/js/adminlte.js"></script>
+<script>
+    function SetPagename(name){
+        $('#pagename').text(name);
+    }
+    function Home() {
+        sessionStorage.clear();
+        window.location.href = '@Url.Action("Li","LI")';
+    }
+    function Logout() {
+        sessionStorage.clear();
+        window.location.href = '@Url.Action("Logout","LI")';
+    }
+
+    function SetLang(lang){
+        var returnUrl = '~/';
+        var culture = 'en-US';
+        if (lang == 1){culture = "th-TH";}
+        $.ajax({
+            type: "POST",
+            url: "/LI/SetLanguage",
+            data: { culture: culture, returnUrl: returnUrl },
+            dataType: "text",
+            success: function (response) { location.reload(); }
+
+        });
+    }
+
+</script>
+
+<script>
+    function MessageBox(title,text) {
+        Swal.fire({
+            title: title,
+            text: text,
+            //icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+
+            if (result.value == true) {
+                console.log("ok");
+            }
+            else{
+                console.log("ng")
+            }
+            return result.value;
+        })
+    }
+
+    function Notify(icon, title) {
+        Swal.fire({
+            position: 'top-end',
+            icon: icon,
+            title: title,
+            customClass: 'swal-notify-wide',
+            showConfirmButton: false,
+            timer: 2000
+        });
+        $(".swal2-modal").css('padding', '30px');//Optional changes the color of the sweetalert
+        $(".swal2-modal").css('width', '400px');
+        $(".swal2-title").css('margin-bottom', '3px');
+        $(".swal2-title").css('font-weight', 'normal');
+        $(".swal2-title").css('font-size', '16px');
+        $(".swal2-container.in").css('background-color', 'rgba(43, 165, 137, 0.45)');//changes the color of the overlay
+
+        if (icon == "info"){
+            $(".swal2-modal").css('background-color', '#3fc3ee');//Optional changes the color of the sweetalert
+            $(".swal2-title").css('color', 'black');
+        }
+        else if (icon == "success") {
+            $(".swal2-modal").css('background-color', '#a5dc86');//Optional changes the color of the sweetalert
+            $(".swal2-title").css('color', 'black');
+        }
+        else if (icon == "warning") {
+            $(".swal2-modal").css('background-color', '#ffc107');//Optional changes the color of the sweetalert
+            $(".swal2-title").css('color', 'black');
+        }
+        else if (icon == "error") {
+            $(".swal2-modal").css('background-color', '#dc3545');//Optional changes the color of the sweetalert
+            $(".swal2-title").css('color', 'white');
+        }
+        if (icon == "question") {
+            $(".swal2-modal").css('background-color', '#d63384');//Optional changes the color of the sweetalert
+            $(".swal2-title").css('color', 'white');
+        }
+    }
+    function setSelectVal(id, val) {
+        if (val != null) {
+            let elm = document.getElementById(id);
+            console.log(elm)
+            console.log(val)
+            elm.value = val;
+            elm.dispatchEvent(new Event('change'))
+        }
+    }
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+        })
+</script>

@@ -1,0 +1,183 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+<div class="row" style="padding-top:10px">
+    <div class="form-row">
+        <div class="form-group col-md-1" style="padding:2px">
+            <label style="font-weight:normal">@localizer["Plant"]</label>
+            <select id="selplant" class="form-control select2">
+                <option></option>
+                <option>TVO1</option>
+                <option>TVO2</option>
+                <option>TVO3</option>
+            </select>
+        </div>
+        <div class="form-group col-md-1" style="padding:2px">
+            <label style="font-weight:normal">@localizer["MaterialCode"]</label>
+            <select id="selmatcode" class="form-control select2">
+                <option></option>
+                <option>F011001501</option>
+                <option>F011001601</option>
+                <option>F012001501</option>
+                <option>F012001601</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3" style="padding:2px">
+            <label style="font-weight:normal">@localizer["MaterialName"]</label>
+            <select id="selmatname" class="form-control select2">
+                <option></option>
+                <option>TVO Dehulled soymeal (TH) 70 Kg</option>
+                <option>TVO Dehulled soymeal (TH) Bulk</option>
+                <option>TVO Dehulled soymeal 70KG</option>
+                <option>TVO Dehulled soymeal BulK</option>
+            </select>
+        </div>
+        <div class="form-group col-md-1" style="padding:2px">
+            <label style="font-weight:normal">@localizer["MFGDate"]</label>
+            <input id="txmfgdate" class="form-control text-center" />
+        </div>
+        <div class="form-group col-md-1" style="padding:2px">
+            <label style="font-weight:normal">@localizer["Line"]</label>
+            <select id="seltype" class="form-control select2">
+                <option></option>
+                <option>J</option>
+                <option>K</option>
+            </select>
+        </div>
+        <div class="form-group col-md-1" style="padding:2px">
+            <label style="font-weight:normal">@localizer["BatchNo"]</label>
+            <input id="txbatch" class="form-control" />
+        </div>
+        <div class="form-group col-md-2" style="margin-bottom:0px;padding-top:27px">
+            <button type="submit" class="btn btn-primary">@localizer["Search"]</button>
+            <button type="submit" class="btn btn-secondary">@localizer["Excel"]</button>
+        </div>
+        <div class="form-group col-md-12">
+            <div class="form-inline">
+                <table class="isr-table" id="tbl1">
+                    <thead>
+                        <tr>
+                            <th style="width:120px">@localizer["BatchNo"]</th>
+                            <th>@localizer["Plant"]</th>
+                            <th>@localizer["MaterialName"]</th>
+                            <th style="width:100px">@localizer["Line"]</th>
+                            <th>@localizer["MFGDate"]</th>
+                            <th>@localizer["Package"]</th>
+                            <th>@localizer["Qty"]</th>
+                            <th>@localizer["UOM"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ondblclick="editData('290224M3A')">
+                            <td class="text-center">290224M3A</td>
+                            <td class="text-center">TVO1</td>
+                            <td>TVO Dehulled soymeal (TH) 70 Kg</td>
+                            <td class="text-center">J</td>
+                            <td class="text-center">01/02/2024</td>
+                            <td>ทิน แคน</td>
+                            <td class="text-right">1,000</td>
+                            <td class="text-center">Bottle</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="modalconfig">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Packing line configuration</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="showmodal(0)">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label>Packing line</label>
+                        <input class="form-control" id="txline" readonly />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Product Type</label>
+                        <div class="form-inline">
+                            <select id="seltype" style="width:100%">
+                                <option>OIL</option>
+                                <option>NON OIL</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Product</label>
+                        <select id="selproduct" style="width:100%">
+                            <option>น้ำมันดิบ(CDSBO)</option>
+                            <option>น้ำมันรีไฟล์ (RBD SBO)</option>
+                            <option>น้ำมันฟอกสี</option>
+                            <option>เลซิทีน</option>
+                            <option>กรดน้ำมันถั่วเหลือง</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Package</label>
+                        <select id="selpkage" style="width:100%">
+                            <option>จัมโบ (Jumbo)</option>
+                            <option>เฟล็กซี่แทงค์</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>UOM</label>
+                        <select id="seluom" style="width:100%">
+                            <option>Flexitank</option>
+                            <option>Cubic foot</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>OPEN/CLOSE</label>
+                        <select id="selopen" style="width:100%">
+                            <option>OPEN</option>
+                            <option>CLOSE</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>PASS/HOLD</label>
+                        <select id="selpass" style="width:100%">
+                            <option>PASS</option>
+                            <option>HOLD</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="showmodal(0)">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="showmodal(0)">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        SetPagename('Loading List');
+    });
+
+    function showmodal(flagshow) {
+        if (flagshow == 1) {
+            $('#modalconfig').show();
+        } else {
+            $('#modalconfig').hide();
+        }
+    }
+
+    function editData(str) {
+        location.href = '@Url.Action("Li", "LI")?id=' + str;
+    }
+    $(function () {
+        var d = new Date();
+        $('#txmfgdate').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true,
+            todayHighlight: true,
+            orientation: "auto"
+        }).datepicker("setDate", d);
+    });
+</script>
