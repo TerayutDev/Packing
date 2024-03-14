@@ -8,11 +8,13 @@
   "Exit": "ออกจากระบบ",
 
   "BatchNo": "เลขที่งาน",
+  "SubBatch": "ครั้งที่",
   "Line": "สายผลิต",
   "SLOC": "คลังวัตถุดิบ",
   "MaterialCode": "รหัสวัตถุดิบ",
   "MaterialGroup": "กลุ่มวัตถุดิบ",
   "MaterialName": "ชื่อวัตถุดิบ",
+  "MaterialType": "ประเภทวัตถุดิบ",
   "MFGDate": "วันที่ผลิต",
   "ExpiredDate": "วันหมดอายุ",
   "RunNo": "ลำดับที่",
@@ -20,9 +22,12 @@
   "Package": "รูปแบบบรรจุ",
   "Shift": "กะ",
   "HoldPass": "ตั้งค่าปล่อยผ่าน",
-  "Apply": "ปรับปรุง",
+  "Apply": "Apply",
+  "Save": "บันทึก",
   "CloseJob": "ปิดงาน",
   "PrintQRCode": "พิมพ์ QR Code",
+  "ClearData": "ล้างข้อมูล",
+
 
   "Plant": "โรงงาน",
   "Search": "ค้นหา",
