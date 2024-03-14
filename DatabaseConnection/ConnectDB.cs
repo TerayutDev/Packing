@@ -58,8 +58,8 @@ namespace Packing.DatabaseConnection
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
                     // เพิ่มพารามิเตอร์สำหรับ Stored Procedure
-                    command.Parameters.AddWithValue("@param1", value1);
-                    command.Parameters.AddWithValue("@param2", value2);
+                    //command.Parameters.AddWithValue("@param1", value1);
+                    //command.Parameters.AddWithValue("@param2", value2);
 
                     connection.Open();
                     command.ExecuteNonQuery();
